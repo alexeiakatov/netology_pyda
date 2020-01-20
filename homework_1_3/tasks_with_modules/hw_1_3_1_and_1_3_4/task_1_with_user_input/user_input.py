@@ -1,5 +1,5 @@
 from sys import exit
-from tasks_with_modules.hw_1_3_1_and_1_3_4.task_1_with_user_input.config import config
+from netology_pyda.homework_1_3.task_1_with_user_input.config import config
 
 BAD_INPUT_MESSAGE = 'Неправильное значение'
 
@@ -98,6 +98,8 @@ def matrix_elements_input(matrix_side_length):
             show_matrix(result)
             print()
 
+    return result
+
 
 def get_user_input():
     validate_configuration()
@@ -114,7 +116,8 @@ def get_user_input():
             continue
 
         if not is_matrix_side_length_valid(matrix_side_length):
-            print(f'{BAD_INPUT_MESSAGE} : {INPUT_SIDE_SIZE_DISPLAY_MESSAGE.format(config_object[MAX_SIDE_LENGTH_KEY])}')
+            max_matrix_side_length = config_object[MAX_SIDE_LENGTH_KEY]
+            print(f'{BAD_INPUT_MESSAGE} : {INPUT_SIDE_SIZE_DISPLAY_MESSAGE.format(max_matrix_side_length)}')
             print()
             continue
 

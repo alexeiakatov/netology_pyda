@@ -1,6 +1,6 @@
 # Пользовательские настройки
-# run_type = 'user_input'
-run_type = 'demo'
+run_type = 'user_input'
+# run_type = 'demo'
 
 MAX_SIDE_LENGTH = 10
 MAX_VALUE_OF_ELEMENT = 100
