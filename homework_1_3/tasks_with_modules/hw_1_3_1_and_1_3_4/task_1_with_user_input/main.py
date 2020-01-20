@@ -1,5 +1,5 @@
-from netology_pyda.homework_1_3.task_1_with_user_input.config import config, get_run_types
-from netology_pyda.homework_1_3.task_1_with_user_input.user_input import get_user_input, show_matrix
+from tasks_with_modules.hw_1_3_1_and_1_3_4.task_1_with_user_input.config import config, get_run_types
+from tasks_with_modules.hw_1_3_1_and_1_3_4.task_1_with_user_input.user_input import get_user_input, show_matrix
 
 RUN_TYPE_KEY = 'run_type'
 RUN_TYPE_DEMO = 'demo'

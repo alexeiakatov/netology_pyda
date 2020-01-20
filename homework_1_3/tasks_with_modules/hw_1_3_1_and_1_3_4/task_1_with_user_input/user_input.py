@@ -1,5 +1,5 @@
 from sys import exit
-from netology_pyda.homework_1_3.task_1_with_user_input.config import config
+from tasks_with_modules.hw_1_3_1_and_1_3_4.task_1_with_user_input.config import config
 
 BAD_INPUT_MESSAGE = 'Неправильное значение'
 
