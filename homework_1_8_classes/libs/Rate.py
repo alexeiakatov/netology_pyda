@@ -19,7 +19,10 @@ class Rate:
     RESPONSE_VALUTE_KEY = 'Valute'
 
     # поле со стоимостью валюты в мапе с данными о конкретной валюты
-    RESPONSE_VALUE_KEY = 'Value'
+    CURRENCY_VALUE_KEY = 'Value'
+
+    # поле с предыдущей стоимостью валюты в мапе с данными о конкретной валюте
+    CURRENCY_PREVIOUS_KEY = 'Previous'
 
     REQUEST_ADDRESS = 'https://www.cbr-xml-daily.ru/daily_json.js'
 
@@ -77,13 +80,41 @@ class Rate:
                 return response[currency]
 
             if self.format_ == self.SELF_FORMAT_JUST_VALUE:
-                return response[currency][self.RESPONSE_VALUE_KEY]
+                return response[currency][self.CURRENCY_VALUE_KEY]
 
         return 'Error'
 
-    def eur(self):
-        """Возвращает курс евро на сегодня в формате self.format_"""
+    def usd(self):
+        currency_info = self.exchange_rates().get(self.DOLLAR_CHAR_CODE, {})
+        return self._get_currency_using_object_config(currency_info)
 
+    #
+    def eur(self):
+        currency_info = self.exchange_rates().get(self.EURO_CHAR_CODE, {})
+        return self._get_currency_using_object_config(currency_info)
+
+    #
+    def _get_currency_using_object_config(self, currency_info):
+        if self.format_ == self.SELF_FORMAT_JUST_VALUE:
+
+            if (self.diff
+                    and self.CURRENCY_VALUE_KEY in currency_info
+                    and self.CURRENCY_PREVIOUS_KEY in currency_info):
+
+                return currency_info[self.CURRENCY_VALUE_KEY] - currency_info[self.CURRENCY_PREVIOUS_KEY]
+
+            if (not self.diff
+                    and self.CURRENCY_VALUE_KEY in currency_info):
+
+                return currency_info[self.CURRENCY_VALUE_KEY]
+
+        if self.format_ == self.SELF_FORMAT_FULL:
+            return currency_info
+
+        raise Exception('Ошибка в методе _get_currency_using_object_config()')
+
+    #
+    def eur_with_state(self):
         currency_obj = self.make_format(self.EURO_CHAR_CODE)
 
         if self.format_ == self.SELF_FORMAT_JUST_VALUE and self.diff:
@@ -93,8 +124,7 @@ class Rate:
 
         return currency_obj
 
-    def usd(self):
-        """Возвращает курс доллара на сегодня в формате self.format_"""
+    def usd_with_state(self):
 
         currency_obj = self.make_format(self.DOLLAR_CHAR_CODE)
 
